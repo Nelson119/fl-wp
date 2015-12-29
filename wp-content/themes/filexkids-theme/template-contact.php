@@ -16,11 +16,8 @@
     <section class="page contact">
       <!--breadcrumbs-->
       <section class="hidden-md hidden-xs hidden-sm breadcrumbs">
-        <section class="container">
-          <ul class="fontsize-13">
-            <li><a href="javascript:">HOME</a></li>
-            <li class="active"><a href="javascript:">分校&amp;聯絡</a></li>
-          </ul>
+        <section class="container fontsize-13">
+          <?php instant_breadcrumb(); ?> 
         </section>
       </section>
       <!-- end breadcrumbs -->
