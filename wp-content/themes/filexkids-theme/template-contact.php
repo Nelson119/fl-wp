@@ -28,9 +28,51 @@
       </section>
       <!-- end map -->
       <!--slide-->
-      <?php if (have_posts()): while (have_posts()) : the_post(); ?>
-      <?php the_content();?>
-      <?php endwhile; endif; ?>
+
+      <?php 
+      // the query
+      $args = array(
+        'post_type' => 'map',
+        'posts_per_page' => 100
+      );
+      $wp_query = new WP_Query( $args ); 
+      if (have_posts()): ?>
+      <section class="container text-center">
+        <h3 class="fontsize-32 brush hidden-lg">分校資訊</h3>
+        <ul class="row contact-list hidden-xs hidden-sm hidden-md">
+          <?php  while (have_posts()) : the_post(); ?>
+          <?php 
+            $ty = types_render_field("color");
+            if($ty == "幼兒園"){
+              $color = 'green';
+            } else if($ty == "安親校"){
+              $color = 'blue';
+            } else{
+              $color = 'yellow';
+            }
+          ?>
+          <li class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <figure><?php echo types_render_field("thumbnail")?></figure>
+            <aside class="box <?php echo $color;?> container text-left">
+              <h3 class="fontsize-20"><?php the_title();?></h3>
+              <p class="fontsize-15">TEL : <?php echo types_render_field("tel")?><br>ADD : <?php echo types_render_field("add")?></p>
+              <p class="fontsize-15"><?php echo types_render_field("description")?></p>
+              <ol class="fontsize-13">
+                <li><a target="_blank" href="<?php echo types_render_field("gallery-link",array("raw"=>"true"))?>"><img class="svg" src="<?php echo $path?>img/nav/pic.svg">環鏡照片</a></li>
+                <li><a target="_blank" href="<?php echo types_render_field("school-type-link",array("raw"=>"true"))?>"><img class="svg" src="<?php echo $path?>img/nav/book.svg">課程體系</a></li>
+                <li><a target="_blank" href="<?php echo types_render_field("map-link",array("raw"=>"true"))?>"><img class="svg" src="<?php echo $path?>img/nav/pin.svg">完整地圖</a></li>
+              </ol>
+            </aside>
+          </li>
+          <?php endwhile; ?>
+        </ul>
+      </section>
+      <?php else: ?>
+      <section>
+        <h3><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h3>
+      </section>
+      <?php endif; ?>
+
       <!-- end slide -->
       <!--form-->
       <section class="container form">

@@ -73,7 +73,7 @@ function html5blankcomments($comment, $args, $depth) {
         $add_below = 'div-comment';
     }
 ?>
-    <<?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
+    <?php echo $tag ?> <?php comment_class(empty( $args['has_children'] ) ? '' : 'parent') ?> id="comment-<?php comment_ID() ?>">
     <?php if ( 'div' != $args['style'] ) : ?>
     <div id="div-comment-<?php comment_ID() ?>" class="comment-body">
     <?php endif; ?>
@@ -346,21 +346,21 @@ remove_filter('term_description','wpautop');
 function change_post_menu_label() {
     global $menu;
     global $submenu;
-    $menu[5][0] = '活動快訊';
-    $submenu['edit.php'][5][0] = '活動快訊';
-    $submenu['edit.php'][10][0] = '新增活動快訊';
-    $submenu['edit.php'][15][0] = '活動快訊分類'; // Change name for categories
-    $submenu['edit.php'][16][0] = '活動快訊標籤'; // Change name for tags
+    $menu[5][0] = '全校公告';
+    $submenu['edit.php'][5][0] = '全校公告';
+    $submenu['edit.php'][10][0] = '新增全校公告';
+    $submenu['edit.php'][15][0] = '全校公告分類'; // Change name for categories
+    $submenu['edit.php'][16][0] = '全校公告標籤'; // Change name for tags
     echo '';
 }
 
 function change_post_object_label() {
         global $wp_post_types;
         $labels = &$wp_post_types['post']->labels;
-        $labels->name = '活動快訊';
-        $labels->singular_name = '活動快訊';
-        $labels->add_new = '新增活動快訊';
-        $labels->add_new_item = '新增活動快訊';
+        $labels->name = '全校公告';
+        $labels->singular_name = '全校公告';
+        $labels->add_new = '新增全校公告';
+        $labels->add_new_item = '新增全校公告';
         $labels->edit_item = '修改';
         $labels->new_item = '新增';
         $labels->view_item = '檢視';

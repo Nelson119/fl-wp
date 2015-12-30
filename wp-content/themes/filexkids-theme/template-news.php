@@ -64,142 +64,65 @@
       <div class="container">
         <section class="row">
           <!--left content-->
+          <?php 
+          // the query
+          $args = array(
+            'post_type' => array( 'news01', 'news02' , 'news03' , 'news04' , 'news05' , 'news06' , 'news07' , 'news08', 'news09' ),
+            'posts_per_page' => 12
+          );
+          $wp_query = new WP_Query( $args ); 
+          if (have_posts()): ?>
           <div class="col-lg-9">
             <ul class="row box-list">
-              <li class="yellow col-lg-4 col-md-4 col-sm-6 col-xs-6">
+              <?php  while (have_posts()) : the_post(); ?>
+              <?php 
+                $ty = get_post_type();
+                global $wp_post_types;
+                $ty_name = $wp_post_types[$ty]->labels->name; 
+                switch ( $ty ){
+                  case 'news01':
+                    $color = 'yellow';
+                    break;
+                  case 'news02':
+                  case 'news03':
+                  case 'news04':
+                  case 'news05':
+                    $color = 'green';
+                    break;
+                  case 'news06':
+                  case 'news07':
+                  case 'news08':
+                  case 'news09':
+                    $color = 'blue';
+                    break;
+                }
+                $summary = types_render_field("summary");
+                if($summary == null || $summary == ""){
+                  $summary = get_the_content();
+                }
+                if(strlen($summary) > 45){                  
+                  $summary = wp_trim_words( get_the_content(), 44 );
+                }
+              ?>
+              <li class="<?php echo $color?> col-lg-4 col-md-4 col-sm-6 col-xs-6">
                 <a href="news-article.html" class="box">
                   <figure>
                     <img src="<?php echo $path?>img/home/news-1-1.png">
                   </figure>
-                  <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
+                  <p class="category"><?php echo $ty_name;?><img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
+                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg"> <?php the_time('Y/m/d') ?> </p>
+                  <h4 class="fontsize-20"><?php echo wp_trim_words( the_title(false), 30 )?></h4>
+                  <p class="fontsize-15 visible-lg"><?php echo $summary?></p>
                 </a>
               </li>
-              <li class="green col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">我真的被欺負了嗎 ?</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="blue col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-2-1.png">
-                  </figure>
-                  <p class="category">北新安校<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">成長的過程、跌撞中學習、成長的過程、跌撞中學習</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="yellow col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="green col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">我真的被欺負了嗎 ?</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="blue col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-2-1.png">
-                  </figure>
-                  <p class="category">北新安校<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">成長的過程、跌撞中學習、成長的過程、跌撞中學習</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="yellow col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="green col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">我真的被欺負了嗎 ?</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="blue col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-2-1.png">
-                  </figure>
-                  <p class="category">北新安校<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">成長的過程、跌撞中學習、成長的過程、跌撞中學習</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="yellow col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="green col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">中興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">我真的被欺負了嗎 ?</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
-              <li class="blue col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                <a href="news-article.html" class="box">
-                  <figure>
-                    <img src="<?php echo $path?>img/home/news-2-1.png">
-                  </figure>
-                  <p class="category">北新安校<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                  <h4 class="fontsize-20">成長的過程、跌撞中學習、成長的過程、跌撞中學習</h4>
-                  <p class="fontsize-15 visible-lg">上個月有機會觀賞了一部動畫片，故事以大腦與情緒的交互作用為藍...</p>
-                </a>
-              </li>
+              <?php endwhile; ?>
             </ul>
           </div>
+          <?php else: ?>
+          <section>
+            <h3><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h3>
+          </section>
+          <?php endif; ?>
           <!-- end left content -->
           <!--sidebar-->
           <div class="col-lg-3 sidebar hidden-md hidden-sm hidden-xs">
@@ -253,16 +176,7 @@
         </section>
         <!--pagination-->
         <section class="pagination newsgreen">
-          <a class="prev" href="javascript:">&lt;Prev</a>
-          <ul>
-            <li><a href="javascript:">1</a></li>
-            <li><a href="javascript:">2</a></li>
-            <li><a href="javascript:">3</a></li>
-            <li><a href="javascript:">4</a></li>
-            <li><a href="javascript:">...</a></li>
-            <li><a href="javascript:">10</a></li>
-          </ul>
-          <a class="next" href="javascript:">Next&gt;</a>
+          <?php get_template_part('pagination'); ?>
         </section>
         <!--end pagination-->
       </div>

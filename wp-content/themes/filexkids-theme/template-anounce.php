@@ -21,145 +21,50 @@
         </section>
       </section>
       <!-- end breadcrumbs -->
+
+
+      <?php 
+      // the query
+      $args = array(
+          'posts_per_page' => 12,
+          'paged' => $page
+      );
+      $wp_query = new WP_Query( $args ); ?>
       <div class="container">
         <section class="row">
           <!--left content-->
+          <?php if ($wp_query->have_posts()): ?>
           <div class="col-lg-9">
             <ul class="row box-list">
+              <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+              <?php 
+                $summary = types_render_field("summary");
+                if($summary == null || $summary == ""){
+                  $summary = get_the_content();
+                }
+                if(strlen($summary) > 45){                  
+                  $summary = wp_trim_words( get_the_content(), 44 );
+                }
+              ?>
               <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                 <a href="javascript:" class="box">
                   <figure>
-                    <img src="img/home/news-1-1.png">
+                    <img src="<?php echo $path?>img/home/news-1-1.png">
                   </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
+                  <p class="category">全校公告<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
                   <p class="fontsize-13 date"><i class="news-icon z04"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，這週老師帶領孩子做地震逃...</p>
+                  <h4 class="fontsize-20"><?php the_title()?></h4>
+                  <p class="fontsize-15 visible-lg"><?php echo $summary?></p>
                 </a>
               </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z05"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">10/1是第一主題的家長日，以往都是邀請所有家長來到學校參與活....</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z06"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">Open House誰來當老師│歡樂飛盤逍遙遊</h4>
-                  <p class="fontsize-15 visible-lg">函穎、桀睿媽媽來了 ！ 孩子們的呼喚聲點燃了OPEN HOUSE的序...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z07"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，這週老師帶領孩子做地震逃...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z08"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">10/1是第一主題的家長日，以往都是邀請所有家長來到學校參與活....</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z09"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">Open House誰來當老師│歡樂飛盤逍遙遊</h4>
-                  <p class="fontsize-15 visible-lg">函穎、桀睿媽媽來了 ！ 孩子們的呼喚聲點燃了OPEN HOUSE的序...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z10"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，這週老師帶領孩子做地震逃...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z11"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">10/1是第一主題的家長日，以往都是邀請所有家長來到學校參與活....</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z12"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">Open House誰來當老師│歡樂飛盤逍遙遊</h4>
-                  <p class="fontsize-15 visible-lg">函穎、桀睿媽媽來了 ！ 孩子們的呼喚聲點燃了OPEN HOUSE的序...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z13"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，這週老師帶領孩子做地震逃...</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z14"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                  <p class="fontsize-15 visible-lg">10/1是第一主題的家長日，以往都是邀請所有家長來到學校參與活....</p>
-                </a>
-              </li>
-              <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
-                  <figure>
-                    <img src="img/home/news-1-1.png">
-                  </figure>
-                  <p class="category">全校公告<img class="svg" src="img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z15"></i>2015/09/30</p>
-                  <h4 class="fontsize-20">Open House誰來當老師│歡樂飛盤逍遙遊</h4>
-                  <p class="fontsize-15 visible-lg">函穎、桀睿媽媽來了 ！ 孩子們的呼喚聲點燃了OPEN HOUSE的序...</p>
-                </a>
-              </li>
+              <?php endwhile; ?>
             </ul>
           </div>
+          <?php else: ?>
+          <article>
+            <h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
+          </article>
+          <?php endif; ?>
           <!-- end left content -->
           <!--sidebar-->
           <div class="col-lg-3 sidebar hidden-md hidden-sm hidden-xs">
@@ -167,7 +72,7 @@
               <h3 class="fontsize-20">CALENDAR</h3>
             </aside>
             <figure class="calendar">
-              <img src="img/anouncement/calendar.png">
+              <img src="<?php echo $path?>img/anouncement/calendar.png">
             </figure>
             <aside class="title newsgreen">
               <h3 class="fontsize-20">Recent Posts</h3>
@@ -213,16 +118,7 @@
         </section>
         <!--pagination-->
         <section class="pagination newsgreen">
-          <a class="prev" href="javascript:">&lt;Prev</a>
-          <ul>
-            <li><a href="javascript:">1</a></li>
-            <li><a href="javascript:">2</a></li>
-            <li><a href="javascript:">3</a></li>
-            <li><a href="javascript:">4</a></li>
-            <li><a href="javascript:">...</a></li>
-            <li><a href="javascript:">10</a></li>
-          </ul>
-          <a class="next" href="javascript:">Next&gt;</a>
+          <?php get_template_part('pagination'); ?>
         </section>
         <!--end pagination-->
       </div>
