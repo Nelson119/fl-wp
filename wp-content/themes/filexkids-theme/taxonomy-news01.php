@@ -1,4 +1,4 @@
-<?php /* Template Name: 學校新聞 */ get_header(); ?>
+<?php get_header(); ?>
 
 <?php $path=wp_make_link_relative(get_template_directory_uri().'/')?>
 
@@ -28,7 +28,7 @@
             <aside class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
               <div class="dropdown fontsize-14">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                  分校選擇
+                  中興愛兒
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li><a href="#">全部分校</a></li>
@@ -40,7 +40,7 @@
                   <li><a href="#">中興幼園</a></li>
                   <li><a href="#">復興幼園</a></li>
                   <li><a href="#">安康幼園</a></li>
-                  <li><a href="#">中興愛兒</a></li>
+                  <li class="active"><a href="#">中興愛兒</a></li>
                 </ul>
               </div>
             </aside>
@@ -181,7 +181,6 @@
         <!--end pagination-->
       </div>
     </section>
-
 <?php get_sidebar(); ?>
 
 <?php get_footer(); ?>

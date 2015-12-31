@@ -5,13 +5,16 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <title>菲力兒童文教機構 | FILEXKIDS EDUCATION INSTITUTE.</title> -->
+    <?php if(is_home()){?>
+    <title>菲力兒童文教機構 | FILEXKIDS EDUCATION INSTITUTE.</title>
+	<?php }else{?>
 	<title><?php echo the_title();?> 🌵菲力兒童文教機構 | FILEXKIDS EDUCATION INSTITUTE.</title>
+	<?php }?>
 	<!-- 標題為頁面標題加網站標題 -->
 	<meta name="description" content="<?php echo get_bloginfo('description'); ?>">
 	<meta name="title" content="<?php echo the_title();?>">
 	<!-- 網頁關鍵字為文章的標籤 -->
-	<meta name="keywords" content="<?php $posttags = get_the_tags();if ($posttags) {foreach($posttags as $tag) {echo $tag->name . ','; }}?>">
+	<meta name="keywords" content="菲力兒童文教,兒童,幼兒,幼兒園,教育,安親,新店,<?php $posttags = get_the_tags();if ($posttags) {foreach($posttags as $tag) {echo $tag->name . ','; }}?>">
 	<!--FACEBOOK OG TAG-->
 	<meta property="og:type" content="website">
 	<meta property="og:url" content="<?php echo get_permalink();?>">

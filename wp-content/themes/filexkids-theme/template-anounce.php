@@ -38,21 +38,21 @@
             <ul class="row box-list">
               <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
               <?php 
-                $summary = types_render_field("summary");
+                $summary = types_render_field("summary",array("raw"=>true));
                 if($summary == null || $summary == ""){
                   $summary = get_the_content();
-                }
-                if(strlen($summary) > 45){                  
-                  $summary = wp_trim_words( get_the_content(), 44 );
+                  if(strlen($summary) > 42){
+                    $summary = wp_trim_words( get_the_content(), 41 );
+                  }
                 }
               ?>
               <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-                <a href="javascript:" class="box">
+                <a href="<?php the_permalink();?>" class="box">
                   <figure>
                     <img src="<?php echo $path?>img/home/news-1-1.png">
                   </figure>
                   <p class="category">全校公告<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon z04"></i>2015/09/30</p>
+                  <p class="fontsize-13 date"><i class="news-icon <?php echo types_render_field("icon-name",array("raw"=>true))?>"></i>2015/09/30</p>
                   <h4 class="fontsize-20"><?php the_title()?></h4>
                   <p class="fontsize-15 visible-lg"><?php echo $summary?></p>
                 </a>
