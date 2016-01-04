@@ -131,8 +131,8 @@ function html5wp_pagination() {
         'total'     => $wp_query->max_num_pages,
         'type'      => 'array',
         'prev_next' => true,
-        'prev_text' => __('PREV&lt;'),
-        'next_text' => __('&gt;NEXT'),
+        'prev_text' => __('&lt;PREV'),
+        'next_text' => __('NEXT&gt;'),
     ) );
     if( is_array( $pages ) ) {
         $i = 0;
@@ -379,27 +379,41 @@ function remove_admin_bar_links() {
 }
 add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
 
-function update_map_geometry_location() {
 
-    $post_id = $_POST['id'];
-    $city = $_POST['city'];
-    $geometry_location = $_POST['geometryLocation'];
+    // flush_rewrite_rules(true);
 
-    CFS()->save(
-      array('city' => $city,'geometry_location' => $geometry_location),
-      array( 'ID' => $post_id )
-    );
-    header('Content-Type: application/json');
-    // echo json_encode(array('city' => $fbid,'geometry_location' => $geometry_location));
-    return false;
+// // Flush added rewrite rules on activation
+// function event_archive_activate() {
+//     event_archive_set_rewrite_rules();
+//     flush_rewrite_rules();
+// }
+// register_activation_hook( __FILE__, 'event_archive_activate' );
+
+// // Add rewrite rule for event archive on init
+function event_archive_set_rewrite_rules() {
+    add_rewrite_tag('%paged%', '([^&]+)');
+    add_rewrite_tag('%ty%', '([^&]+)');
+    add_rewrite_rule('^學校新聞/中興愛兒/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news01&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/中興愛兒/([0-9]{4})/?','index.php?post_type=news01&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/安華幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news02&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/安華幼園/([0-9]{4})/?','index.php?post_type=news02&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/中興幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news03&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/中興幼園/([0-9]{4})/?','index.php?post_type=news03&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/安康幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news04&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/安康幼園/([0-9]{4})/?','index.php?post_type=news04&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/復興幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news05&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/復興幼園/([0-9]{4})/?','index.php?post_type=news05&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/大豐安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news06&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/大豐安親/([0-9]{4})/?','index.php?post_type=news06&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/中興安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news07&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/中興安親/([0-9]{4})/?','index.php?post_type=news07&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/北新安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news08&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/北新安親/([0-9]{4})/?','index.php?post_type=news08&year=$matches[1]');
+    add_rewrite_rule('^學校新聞/安康安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news09&year=$matches[1]&paged=$matches[2]');
+    add_rewrite_rule('^學校新聞/安康安親/([0-9]{4})/?','index.php?post_type=news09&year=$matches[1]');
 }
-
-add_action('wp_ajax_update_map_geometry_location', 'update_map_geometry_location');
-add_action('wp_ajax_nopriv_update_map_geometry_location', 'update_map_geometry_location');
-
-
-// error_reporting(E_ALL);
-// ini_set("display_errors", 1);
-
+add_filter( 'init', 'event_archive_set_rewrite_rules' );
+//         global $wp_rewrite;
+//         var_dump($wp_rewrite);
 
 ?>

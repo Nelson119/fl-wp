@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php if(is_home()){?>
+  <?php if(is_home()){?>
     <title>菲力兒童文教機構 | FILEXKIDS EDUCATION INSTITUTE.</title>
-	<?php }else{?>
+  <?php }else if(is_archive()){?>
+    <title><?php echo post_type_archive_title();?> | FILEXKIDS EDUCATION INSTITUTE.</title>
+  <?php }else{?>
 	<title><?php echo the_title();?> 🌵菲力兒童文教機構 | FILEXKIDS EDUCATION INSTITUTE.</title>
 	<?php }?>
 	<!-- 標題為頁面標題加網站標題 -->

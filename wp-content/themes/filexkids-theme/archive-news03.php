@@ -1,4 +1,4 @@
-<?php /* Template Name: 學校新聞 */ get_header(); ?>
+<?php get_header(); ?>
 
 <?php $path=wp_make_link_relative(get_template_directory_uri().'/')?>
 
