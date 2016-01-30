@@ -15,18 +15,79 @@
     <!--left content-->
     <?php 
     // the query
-    // echo $post;
-    if($post_type !== 'page'){
-      $args = array(
-        'post_type' => array($post_type),
-        'posts_per_page' => 12
-      );
-    }else{
-      $args = array(
-        'post_type' => array( 'news01', 'news02' , 'news03' , 'news04' , 'news05' , 'news06' , 'news07' , 'news08', 'news09' ),
-        'posts_per_page' => 12
-      );
+    $school = null;
+    if(isset($_GET['school'])){
+      $school = $_GET['school'];
     }
+    $pty = array( 'news01', 'news02' , 'news03' , 'news04' , 'news05' , 'news06' , 'news07' , 'news08', 'news09' );
+
+    $wp_query = new WP_Query( $args ); 
+
+    switch($school){
+      case '中興愛兒':
+        $pty = $pty[0];
+        break;
+      case '安華幼園':
+        $pty = $pty[1];
+        break;
+      case '中興幼園':
+        $pty = $pty[2];
+        break;
+      case '安康幼園':
+        $pty = $pty[3];
+        break;
+      case '復興幼園':
+        $pty = $pty[4];
+        break;
+      case '大豐安親':
+        $pty = $pty[5];
+        break;
+      case '中興安親':
+        $pty = $pty[6];
+        break;
+      case '北新安親':
+        $pty = $pty[7];
+        break;
+      case '安康安親':
+        $pty = $pty[8];
+        break;
+    }
+    $args = array(
+      'post_type' => $pty,
+      'posts_per_page' => 5000,
+      'order_by' => 'date',
+      'order' => 'desc'
+    );
+    $wp_query = new WP_Query( $args );
+    $highlightDate = array();
+    
+    while (have_posts()) : the_post();
+      array_push($highlightDate,get_the_date('Y/m/d'));
+    endwhile;
+    echo '<script> var highlightDates=\''.json_encode($highlightDate).'\'</script>';
+
+    wp_reset_query();
+
+    $dq = array();
+    if(isset($_GET['filter_year'])){
+      $dq['year'] = $_GET['filter_year'];
+    }
+    if(isset($_GET['filter_month'])){
+      $dq['month'] = $_GET['filter_month'];
+    }
+    if(isset($_GET['filter_day'])){
+      $dq['day'] = $_GET['filter_day'];
+    }
+
+
+    $args = array(
+        'post_type' => $pty,
+        'posts_per_page' => 12,
+        'date_query' => $dq,
+        'order_by' => 'date',
+        'paged' => $page,
+        'order' => 'desc'
+    );
     $wp_query = new WP_Query( $args ); 
     if (have_posts()): ?>
     <div class="col-lg-9">
@@ -53,18 +114,15 @@
               $color = 'blue';
               break;
           }
-          $summary = types_render_field("summary");
-          if($summary == null || $summary == ""){
-            $summary = get_the_content();
-          }
-          if(strlen($summary) > 42){                  
-            $summary = wp_trim_words( get_the_content(), 41 );
-          }
+            $summary = types_render_field("summary", array(raw =>true));
+            if($summary == null || $summary == ""){
+              $summary = wp_trim_words( get_the_content(), 41 );
+            }
         ?>
         <li class="<?php echo $color?> col-lg-4 col-md-4 col-sm-6 col-xs-6">
           <a href="<?php the_permalink()?>" class="box">
             <figure>
-              <img src="<?php echo $path?>img/home/news-1-1.png">
+              <?php echo get_the_post_thumbnail()?>
             </figure>
             <p class="category"><?php echo $ty_name;?><img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
             <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg"> <?php the_time('Y/m/d') ?> </p>
@@ -74,6 +132,11 @@
         </li>
         <?php endwhile; ?>
       </ul>
+      <!--pagination-->
+      <section class="pagination newsgreen">
+        <?php get_template_part('pagination'); ?>
+      </section>
+      <!--end pagination-->
     </div>
     <?php else: ?>
     <div class="col-lg-9">
@@ -82,59 +145,8 @@
     <?php endif; ?>
     <!-- end left content -->
     <!--sidebar-->
-    <div class="col-lg-3 sidebar hidden-md hidden-sm hidden-xs">
-      <aside class="title newsgreen">
-        <h3 class="fontsize-20">CALENDAR</h3>
-      </aside>
-      <figure class="calendar">
-        <img src="<?php echo $path?>img/news/calendar.png">
-      </figure>
-      <aside class="title newsgreen">
-        <h3 class="fontsize-20">Recent Posts</h3>
-      </aside>
-      <ul class="recent-posts fontsize-reset newsgreen">
-        <li>
-          <h4 class="row fontsize-reset">
-            <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-            <a class="col-lg-8 fontsize-16" href="javascript:">平時防災做得好│災害來沒煩惱</a>
-          </h4>
-        </li>
-        <li>
-          <h4 class="row fontsize-reset">
-            <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-            <a class="col-lg-8 fontsize-16" href="javascript:">教學觀摩家長日│寶貝帶著爸爸媽媽去上學</a>
-          </h4>
-        </li>
-        <li>
-          <h4 class="row fontsize-reset">
-            <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-            <a class="col-lg-8 fontsize-16" href="javascript:">平時防災做得好│災害來沒煩惱</a>
-          </h4>
-        </li>
-        <li>
-          <h4 class="row fontsize-reset">
-            <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-            <a class="col-lg-8 fontsize-16" href="javascript:">Open House誰來當老師│歡樂飛盤逍遙遊</a>
-          </h4>
-        </li>
-        <li>
-          <h4 class="row fontsize-reset">
-            <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-            <a class="col-lg-8 fontsize-16" href="javascript:">教學觀摩家長日│寶貝帶著爸爸媽媽去上學</a>
-          </h4>
-        </li>
-      </ul>
-      <aside class="title newsgreen">
-        <h3 class="fontsize-20">FACEBOOK FAN PAGE</h3>
-      </aside>
-      <div class="fb-page" data-href="https://www.facebook.com/filexkids" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/filexkids"><a href="https://www.facebook.com/filexkids">菲力兒童文教機構 | Filexkids</a></blockquote></div></div>
-    </div>
+    <?php get_sidebar('news'); ?>
     <!-- end sidebar -->
   </section>
-  <!--pagination-->
-  <section class="pagination newsgreen">
-    <?php get_template_part('pagination'); ?>
-  </section>
-  <!--end pagination-->
   <?php wp_reset_query(); ?>
 </div>

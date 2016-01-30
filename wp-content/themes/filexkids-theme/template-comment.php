@@ -32,25 +32,12 @@
               <div class="fb-comments col-lg-9" data-href="http://google.com/" data-width="100%" data-numposts="5" data-css="facebook.css"></div>
               <!-- end left content -->
               <!--sidebar-->
-              <div class="col-lg-3 sidebar hidden-md hidden-sm hidden-xs">
-                <aside class="title">
-                  <h3 class="fontsize-20">SPONSOR</h3>
-                </aside>
-                <figure class="sponsor">
-                  <a href="javascript:"><img src="<?php echo $path?>img/comment/sponsor.png"></a>
-                </figure>
-                <aside class="title">
-                  <h3 class="fontsize-20">FACEBOOK FAN PAGE</h3>
-                </aside>
-                
-                <div class="fb-page" data-href="https://www.facebook.com/filexkids" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/filexkids"><a href="https://www.facebook.com/filexkids">菲力兒童文教機構 | Filexkids</a></blockquote></div></div>
-              </div>
+              <?php get_sidebar(); ?>
               <!-- end sidebar -->
             </section>
         </div>
       </div>
     </section>
 
-<?php get_sidebar(); ?>
 
 <?php get_footer(); ?>

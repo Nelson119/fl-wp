@@ -1,13 +1,10 @@
 <?php get_header(); ?>
-
-<?php $path=wp_make_link_relative(get_template_directory_uri().'/')?>
-
-    <?php get_template_part('news-kv'); ?>
-    <section class="page news">
-      <?php get_template_part('breadcrumbs'); ?>
-      <?php get_template_part('news-filter'); ?>
-      <?php get_template_part('news-list'); ?>
-    </section>
-<?php get_sidebar(); ?>
+	<main role="main">
+		<section>
+			<!-- <h1><?php _e( 'Archives', 'html5blank' ); ?></h1> -->
+			<?php get_template_part('loop-news08'); ?>
+			<?php get_template_part('pagination'); ?>
+		</section>
+	</main>
 
 <?php get_footer(); ?>

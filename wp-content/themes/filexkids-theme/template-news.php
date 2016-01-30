@@ -8,6 +8,5 @@
       <?php get_template_part('news-filter'); ?>
       <?php get_template_part('news-list'); ?>
     </section>
-<?php get_sidebar(); ?>
 
-<?php get_footer(); ?>
+<?php get_footer('lightgreen'); ?>

@@ -4,21 +4,22 @@
 
     <section id="kv">
       <ul>
-        <li>
-          <a href="javascript:"><img src="<?php echo $path?>img/kv/banner.png"></a>
-        </li>
-        <li>
-          <a href="javascript:"><img src="<?php echo $path?>img/kv/banner2.png"></a>
-        </li>
-        <li>
-          <a href="javascript:"><img src="<?php echo $path?>img/kv/banner.png"></a>
-        </li>
-        <li>
-          <a href="javascript:"><img src="<?php echo $path?>img/kv/banner2.png"></a>
-        </li>
-        <li>
-          <a href="javascript:"><img src="<?php echo $path?>img/kv/banner.png"></a>
-        </li>
+        <?php 
+          $cfs = CFS();
+          $pictures = $cfs->get('slides');
+          if(count($pictures)) {
+            foreach ($pictures as $picture) {
+              $target = ' target="blank"';
+              if($picture['link_target']){
+                $target = 'target="blank"';
+              }
+              ?>
+              <li>
+                <a <?php echo $target?> href="<?php echo $picture['link']?>"><img src="<?php echo $picture['image_source']?>"></a>
+              </li>
+            <?php }
+
+          }?>
       </ul>
     </section>
     <section class="page home">
@@ -26,14 +27,14 @@
       <section class="concept text-center">
         <section class="container">
           <h3 class="brush fontsize-30">Concept</h3>
-          <h4 class="fontsize-24">完整的0-12歲教育體系，分齡分校的唯一堅持</h4>
-          <p class="fontsize-15">0-3歲嬰幼兒、2-6歲學前兒童、6-12歲國小孩子，有著截然不同的學習方式與環境需求。<br>菲力依據不同年齡孩子需求規劃環境，將不同屬性的孩子分屬不同的學校，<br>與坊間附設幼幼班或附設安親班的方式不同。<br>同時，菲力幼兒學校依社區化的設校理念，安親學校更早已落實學區分校，<br>是菲力與坊間學校最大的不同之一！</p>
+          <h4 class="fontsize-24"><?php echo $cfs->get('concept_title')?></h4>
+          <p class="fontsize-15"><?php echo $cfs->get('concept_summary')?></p>
 
           <ul class="row">
             <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
+              <a href="<?php echo get_site_url()?>/0-3歲愛兒館">
                 <img alt="0-3Y 愛兒館" src="<?php echo $path?>img/home/concept1.png">
-                <span class="fontsize-16">菲力依據不同年齡孩子需求規劃環境，<br>將不同屬性的孩子分屬不同的學校，<br>與坊間附設幼幼班<br>或附設安親班的方式不同。</span>
+                <span class="fontsize-16"><?php echo $cfs->get('0_3y_')?></span>
                 <figure class="bloom"><div>
                   <figcaption class="fontsize-30">0-3Y 愛兒館</figcaption>
                   <img class="svg" src="<?php echo $path?>img/common/dialog-bloom.svg">
@@ -41,9 +42,9 @@
               </a>
             </li>
             <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
+              <a href="<?php echo get_site_url()?>/2-6歲幼兒園">
                 <img alt="2-6Y 幼兒園" src="<?php echo $path?>img/home/concept2.png">
-                <span class="fontsize-16">菲力依據不同年齡孩子需求規劃環境，<br>將不同屬性的孩子分屬不同的學校，<br>與坊間附設幼幼班<br>或附設安親班的方式不同。</span>
+                <span class="fontsize-16"><?php echo $cfs->get('2_6y_')?></span>
                 <figure class="bloom"><div>
                   <figcaption class="fontsize-30">2-6Y 幼兒園</figcaption>
                   <img class="svg" src="<?php echo $path?>img/common/dialog-bloom.svg">
@@ -51,9 +52,9 @@
               </a>
             </li>
             <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
+              <a href="<?php echo get_site_url()?>/6-12歲安親校">
                 <img alt="6-12Y 安親校" src="<?php echo $path?>img/home/concept3.png">
-                <span class="fontsize-16">菲力依據不同年齡孩子需求規劃環境，<br>將不同屬性的孩子分屬不同的學校，<br>與坊間附設幼幼班<br>或附設安親班的方式不同。</span>
+                <span class="fontsize-16"><?php echo $cfs->get('6_12y_')?></span>
                 <figure class="bloom"><div>
                   <figcaption class="fontsize-30">6-12Y 安親校</figcaption>
                   <img class="svg" src="<?php echo $path?>img/common/dialog-bloom.svg">
@@ -70,45 +71,42 @@
           <section class="row">
             <section class="col-lg-12 text-left">
               <aside class="title">
-                <h3 class="fontsize-30">全校公告</h3><sub class="fontsize-14">有觀點，就能找到方向</sub>
-                <h6><a href="javascript:">全校公告一覽</a></h6>
+                <h3 class="fontsize-30">全校公告</h3><sub class="fontsize-14"><?php echo $cfs->get('anounce_tagline')?></sub>
+                <h6><a href="<?php echo get_site_url()?>/anounce">全校公告一覽</a></h6>
               </aside>
             </section>
           </section>
           <ul class="row">
-            <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
-                <p class="date fontsize-13">2015/10/05</p>
-                <figure class="z01"></figure>
-                <h4 class="fontsize-20">11/29(日)菲力親子休閒遊{開心農場}好遊趣綠世界生態農場&amp;北埔老街巡禮</h4>
-                <h5 class="fontsize-15">天際忽現美麗的天堂鳥展翅飛過；身旁則見毛茸茸的樹懶緩緩爬過眼前，還有羊駝媽媽帶...</h5>
+            <?php 
+              $args = array(
+                'posts_per_page' => 3,
+                'orderby' => 'date',
+                'order'   => 'DESC',
+                'post_type' => 'post'
+              );
+              $wp_query = new WP_Query( $args ); 
+              ?>
+              <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+            <?php
+              $summary = types_render_field("summary", array(raw =>true));
+              if($summary == null || $summary == ""){
+                $summary = wp_trim_words( get_the_content(), 41 );
+              }
+              $url = get_the_permalink();
+            ?>
+            <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12" id="<?php get_the_id()?>">
+              <a href="<?php echo $url?>">
+                <p class="date fontsize-13"><?php echo get_the_date('Y/m/d')?></p>
+                <figure class="<?php echo types_render_field("icon-name",array("raw"=>true))?>"></figure>
+                <h4 class="fontsize-20"><?php echo wp_trim_words( get_the_title(), 30 )?></h4>
+                <h5 class="fontsize-15"><?php  echo $summary?></h5>
                 <span class="btn fontsize-13">
                   more<i class="fa fa-chevron-right"> </i>
                 </span>
               </a>
             </li>
-            <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
-                <p class="date fontsize-13">2015/10/05</p>
-                <figure class="z02"></figure>
-                <h4 class="fontsize-20">11/29(日)菲力親子休閒遊{開心農場}好遊趣綠世界生態農場&amp;北埔老街巡禮</h4>
-                <h5 class="fontsize-15">天際忽現美麗的天堂鳥展翅飛過；身旁則見毛茸茸的樹懶緩緩爬過眼前，還有羊駝媽媽帶...</h5>
-                <span class="btn fontsize-13">
-                  more<i class="fa fa-chevron-right"> </i>
-                </span>
-              </a>
-            </li>
-            <li class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:">
-                <p class="date fontsize-13">2015/10/05</p>
-                <figure class="z03"></figure>
-                <h4 class="fontsize-20">11/29(日)菲力親子休閒遊{開心農場}好遊趣綠世界生態農場&amp;北埔老街巡禮</h4>
-                <h5 class="fontsize-15">天際忽現美麗的天堂鳥展翅飛過；身旁則見毛茸茸的樹懶緩緩爬過眼前，還有羊駝媽媽帶...</h5>
-                <span class="btn fontsize-13">
-                  more<i class="fa fa-chevron-right"> </i>
-                </span>
-              </a>
-            </li>
+          <?php endwhile; ?>
+          <?php wp_reset_query(); ?>
           </ul>
         </section>
       </section>
@@ -119,111 +117,62 @@
           <section class="row">
             <section class="col-lg-12 text-left">
               <aside class="title">
-                <h3 class="fontsize-30">學校新聞</h3><sub class="fontsize-14">最新資訊都在這唷!</sub>
-                <h6><a href="javascript:">學校新聞一覽</a></h6>
+                <h3 class="fontsize-30">學校新聞</h3><sub class="fontsize-14"><?php echo $cfs->get('news_tagline')?></sub>
+                <h6><a href="<?php echo get_site_url()?>/news">學校新聞一覽</a></h6>
               </aside>
             </section>
           </section>
           <ul class="row box-list">
-            <li class="yellow col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
+          <?php 
+            $args = array(
+              'post_type' => array( 'news01', 'news02' , 'news03' , 'news04' , 'news05' , 'news06' , 'news07' , 'news08', 'news09' ),
+              'posts_per_page' => 9,
+                'orderby' => 'date',
+                'order'   => 'DESC'
+            );
+            $wp_query = new WP_Query( $args ); 
+          ?>
+          <?php  while (have_posts()) : the_post(); ?>
+          <?php 
+            $ty = get_post_type();
+            global $wp_post_types;
+            $ty_name = $wp_post_types[$ty]->labels->name;
+            switch ( $ty ){
+              case 'news01':
+                $color = 'yellow';
+                break;
+              case 'news02':
+              case 'news03':
+              case 'news04':
+              case 'news05':
+                $color = 'green';
+                break;
+              case 'news06':
+              case 'news07':
+              case 'news08':
+              case 'news09':
+                $color = 'blue';
+                break;
+            }
+            $summary = types_render_field("summary", array(raw =>true));
+            if($summary == null || $summary == ""){
+              $summary = wp_trim_words( get_the_content(), 41 );
+            }
+            $url = get_the_permalink();
+          ?>
+            <li class="<?php echo $color?> col-lg-4 col-md-6 col-sm-6 col-xs-6">
+              <a href="<?php echo $url?>" class="box">
                 <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
+                  <?php echo get_the_post_thumbnail()?>
                 </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
+                <p class="category"><?php echo $ty_name?><img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
+                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg"><?php echo get_the_date('Y/m/d')?></p>
+                <h4 class="fontsize-20"><?php echo wp_trim_words( get_the_title(), 30 )?></h4>
+                <p class="fontsize-15 visible-lg"><?php  echo $summary?></p>
               </a>
             </li>
-            <li class="green col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="yellow col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="green col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="yellow col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="green col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-6 col-sm-6 col-xs-6">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date"><img src="<?php echo $path?>img/home/news.svg">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
+          <?php endwhile; ?>
+          <?php wp_reset_query(); ?>
           </ul>
         </section>
       </section>
@@ -232,112 +181,64 @@
       <section class="life text-center">
         <section class="container">
           <h3 class="brush fontsize-30">菲力生活</h3>
-          <h4 class="fontsize-14">相片能真實呈現生活成長的軌跡，藉著相片，與菲力家長分享孩子生活的甜蜜點滴</h4>
+          <h4 class="fontsize-14"><?php echo $cfs->get('life_tagline')?></h4>
         </section>
         <section class="container slide-container">
           <ul class="row text-left box-list">
-            <li class="yellow col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
+          <?php 
+            $args = array(
+              'post_type' => array( 'album01', 'album02' , 'album03' , 'album04' , 'album05' , 'album06' , 'album07' , 'album08', 'album09' ),
+              'posts_per_page' => 9,
+              'orderby' => 'date',
+              'order'   => 'DESC'
+            );
+            $wp_query = new WP_Query( $args ); 
+          ?>
+          <?php  while (have_posts()) : the_post(); ?>
+          <?php 
+            $ty = get_post_type();
+            global $wp_post_types;
+            $ty_name = $wp_post_types[$ty]->labels->singular_name;
+            switch ( $ty ){
+              case 'album01':
+                $color = 'yellow';
+                break;
+              case 'album02':
+              case 'album03':
+              case 'album04':
+              case 'album05':
+                $color = 'green';
+                break;
+              case 'album06':
+              case 'album07':
+              case 'album08':
+              case 'album09':
+                $color = 'blue';
+                break;
+            }
+            $summary = types_render_field("summary", array(raw =>true));
+            if($summary == null || $summary == ""){
+              $summary = wp_trim_words( get_the_content(), 41 );
+            }
+            $thumbnail = types_render_field("thumbnail", array(raw =>true));
+            $url = get_site_url(). '/albums/播放?title= '.get_the_title().'&galleryURL=' . get_site_url().'/albums/xml%3Ffid='. types_render_field("flickr-photoset", array("raw"=>true));
+          ?>
+            <li class="<?php echo $color?> col-lg-4 col-md-12 col-sm-12 col-xs-12">
+              <a href="<?php echo $url?>" class="box">
                 <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
+                   <img src="<?php echo $thumbnail?>">
                 </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
+                <p class="category"><?php echo $ty_name?><img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
+                <p class="fontsize-13 date"><?php echo get_the_date('Y/m/d')?></p>
+                <h4 class="fontsize-20"><?php echo wp_trim_words( get_the_title(), 30 )?></h4>
+                <p class="fontsize-15 visible-lg"><?php  echo $summary?></p>
               </a>
             </li>
-            <li class="yellow col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="green col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-1-1.png">
-                </figure>
-                <p class="category">中興愛兒<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blueT col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-2-1.png">
-                </figure>
-                <p class="category">復興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="green col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-2-1.png">
-                </figure>
-                <p class="category">復興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="green col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-2-1.png">
-                </figure>
-                <p class="category">復興幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-3-1.png">
-                </figure>
-                <p class="category">安華幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-3-1.png">
-                </figure>
-                <p class="category">安華幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
-            <li class="blue col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <a href="javascript:" class="box">
-                <figure>
-                  <img src="<?php echo $path?>img/home/news-3-1.png">
-                </figure>
-                <p class="category">安華幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                <p class="fontsize-13 date">2015/09/30</p>
-                <h4 class="fontsize-20">平時防災做得好│災害來了沒煩惱</h4>
-                <p class="fontsize-15 visible-lg">每一學期，都會有一次的防災教育演習，防災教育演習這週老師帶領孩子做地震逃生演習。...</p>
-              </a>
-            </li>
+          <?php endwhile; ?>
+          <?php wp_reset_query(); ?>
           </ul>
         </section>
-        <h6><a href="javascript:">生活相簿一覽</a></h6>
+        <h6><a href="<?php echo get_site_url()?>/albums">生活相簿一覽</a></h6>
       </section>
       <!-- end life -->
       <!--blog-->
@@ -346,35 +247,50 @@
           <section class="row">
             <section class="col-lg-8 text-left">
               <aside class="title">
-                <h3 class="fontsize-30">夢想筆記</h3><sub class="fontsize-14">有觀點，就能找到方向</sub>
-                <h6><a href="javascript:">夢想筆記一覽</a></h6>
+                <h3 class="fontsize-30">夢想筆記</h3><sub class="fontsize-14"><?php echo $cfs->get('blog_tagline')?></sub>
+                <h6><a href="<?php echo get_site_url()?>/blog">夢想筆記一覽</a></h6>
               </aside>
               <ul class="list">
-                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 green">
-                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13">2015/10/05<sub class="category fontsize-13">安康幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
-                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="javascript:">安心做自己：被接納.被喜歡.被尊重</a></h4>
-                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right">宥妘園長</span>
+              <?php 
+                $args = array(
+                  'post_type' => array( 'blog01', 'blog02' , 'blog03' , 'blog04' , 'blog05' , 'blog06' , 'blog07' , 'blog08', 'blog09' ),
+                  'posts_per_page' => 5,
+                  'orderby' => 'date',
+                  'order'   => 'DESC' 
+                );
+                $wp_query = new WP_Query( $args ); 
+              ?>
+              <?php  while (have_posts()) : the_post(); ?>
+              <?php 
+                $ty = get_post_type();
+                global $wp_post_types;
+                $ty_name = $wp_post_types[$ty]->labels->singular_name;
+                switch ( $ty ){
+                  case 'blog01':
+                    $color = 'yellow';
+                    break;
+                  case 'blog02':
+                  case 'blog03':
+                  case 'blog04':
+                  case 'blog05':
+                    $color = 'green';
+                    break;
+                  case 'blog06':
+                  case 'blog07':
+                  case 'blog08':
+                  case 'blog09':
+                    $color = 'blue';
+                    break;
+                }
+                // $url = the_permalink(false);
+              ?>
+                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 <?php $color?>">
+                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13"><?php the_date('Y/m/d')?><sub class="category fontsize-13"><?php echo $ty_name?><img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
+                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="<?php echo get_the_permalink()?>"><?php  echo wp_trim_words( get_the_title(), 30 )?></a></h4>
+                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right"><?php echo types_render_field("author-name",array("raw"=>"true"))?></span>
                 </li>
-                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 green">
-                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13">2015/10/05<sub class="category fontsize-13">安康幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
-                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="javascript:">安心做自己：被接納.被喜歡.被尊重</a></h4>
-                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right">宥妘園長</span>
-                </li>
-                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 blue">
-                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13">2015/10/05<sub class="category fontsize-13">安康幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
-                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="javascript:">安心做自己：被接納.被喜歡.被尊重</a></h4>
-                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right">宥妘園長</span>
-                </li>
-                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 blue">
-                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13">2015/10/05<sub class="category fontsize-13">安康幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
-                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="javascript:">安心做自己：被接納.被喜歡.被尊重</a></h4>
-                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right">宥妘園長</span>
-                </li>
-                <li class="col-lg-12 col-xs-12 col-sm-12 col-md-12 yellow">
-                  <span class="col-lg-3 col-md-3 col-sm-3 date fontsize-13">2015/10/05<sub class="category fontsize-13">安康幼園<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></sub></span>
-                  <h4 class="col-lg-6 col-md-6 col-sm-6 fontsize-16"><a href="javascript:">安心做自己：被接納.被喜歡.被尊重</a></h4>
-                  <span class="author col-lg-3 col-md-3 col-sm-3 fontsize-15 text-right">宥妘園長</span>
-                </li>
+              <?php endwhile; ?>
+              <?php wp_reset_query(); ?>
               </ul>
             </section>
             <aside class="col-lg-4 hidden-md hidden-sm hidden-xs">
@@ -385,7 +301,9 @@
       </section>
       <!-- end blog -->
     </section>
-
-<?php get_sidebar(); ?>
-
+<style>
+  ul.box-list, ul.list{
+    min-height: 0;
+  }
+</style>
 <?php get_footer(); ?>

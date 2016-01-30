@@ -2,7 +2,7 @@
     <footer>
       <section class="link hidden-md hidden-sm hidden-xs">
         <section class="container">
-          <ul class="row">
+          <!-- <ul class="row">
             <li class="col-lg-3">
               <a href="javascript:"><img src="<?php echo $path?>img/footer/link-1.png"></a>
             </li>
@@ -15,6 +15,33 @@
             <li class="col-lg-3">
               <a href="javascript:"><img src="<?php echo $path?>img/footer/link-4.png"></a>
             </li>
+          </ul> -->
+          <ul class="row">
+    <?php 
+      // the query
+      $args = array(
+        'page_id' => 4
+      );
+      $wp_query = new WP_Query( $args );
+      if ($wp_query->have_posts()){ 
+        $wp_query->the_post(); 
+      ?>
+    <?php 
+      $cfs = CFS();
+      $pictures = $cfs->get('sponsor');
+      if(count($pictures)) {
+        foreach ($pictures as $picture) {
+          ?>
+          <li>
+            <a target="_blank" href="<?php echo $picture['url']?>"><img src="<?php echo $picture['image']?>"></a>
+          </li>
+        <?php }
+
+      }?>
+    <?php 
+      } 
+    ?>
+    <?php wp_reset_query(); ?>
           </ul>
         </section>
       </section>
@@ -23,19 +50,19 @@
           <nav class="main">
             <ul class="fontsize-13">
               <li>
-                <a href="javascript:"><img class="svg" src="<?php echo $path?>img/nav/flag.svg">關於菲力</a>
+                <a href="<?php echo get_site_url()?>/關於菲力"><img class="svg" src="<?php echo $path?>img/nav/flag.svg">關於菲力</a>
               </li>
               <li>
-                <a href="javascript:"><img class="svg" src="<?php echo $path?>img/nav/book.svg">學校體系</a>
+                <a href="<?php echo get_site_url()?>/0-3歲愛兒館"><img class="svg" src="<?php echo $path?>img/nav/book.svg">學校體系</a>
               </li>
               <li>
-                <a href="javascript:"><img class="svg" src="<?php echo $path?>img/nav/horn.svg">菲力公告</a>
+                <a href="<?php echo get_site_url()?>/anounce"><img class="svg" src="<?php echo $path?>img/nav/horn.svg">菲力公告</a>
               </li>
               <li>
-                <a href="javascript:"><img class="svg" src="<?php echo $path?>img/nav/hearts.svg">菲力生活</a>
+                <a href="<?php echo get_site_url()?>/blog"><img class="svg" src="<?php echo $path?>img/nav/hearts.svg">菲力生活</a>
               </li>
               <li>
-                <a href="javascript:"><img class="svg" src="<?php echo $path?>img/nav/mail.svg">分校&amp;聯絡</a>
+                <a href="<?php echo get_site_url()?>/分校聯絡"><img class="svg" src="<?php echo $path?>img/nav/mail.svg">分校&amp;聯絡</a>
               </li>
             </ul>
           </nav>
@@ -43,19 +70,19 @@
             <h3 class="fontsize-32 hidden-lg">FOLLOW US</h3>
             <ul class="fontsize-13">
               <li>
-                <a href="javascript:"><img src="<?php echo $path?>img/nav/fb.svg"></a>
+                <a target="_blank" href="https://www.facebook.com/filexkids"><img src="<?php echo $path?>img/nav/fb.svg"></a>
               </li>
               <li>
-                <a href="javascript:"><img src="<?php echo $path?>img/nav/gp.svg"></a>
+                <a href="javascript:window.open('https://plus.google.com/share?url='+encodeURIComponent('<?php the_permalink(); ?>')+'&amp;title='+encodeURIComponent('<?php the_title(); ?>'));void(0);"><img src="<?php echo $path?>img/nav/gp.svg"></a>
               </li>
               <li>
-                <a href="javascript:"><img src="<?php echo $path?>img/nav/line.svg"></a>
+                <a href="javascript:window.open('http://line.me/R/msg/text/?'+encodeURIComponent('<?php the_permalink(); ?>\r\n<?php the_title()?>'));void(0);"><img src="<?php echo $path?>img/nav/line.svg"></a>
               </li>
               <li>
-                <a href="javascript:"><img src="<?php echo $path?>img/nav/yt.svg"></a>
+                <a target="_blank" href="https://www.youtube.com/user/filexkids"><img src="<?php echo $path?>img/nav/yt.svg"></a>
               </li>
               <li>
-                <a href="javascript:"><img src="<?php echo $path?>img/nav/wx.svg"></a>
+                <a href="javascript:window.open('http://share.baidu.com/s?type=text&amp;searchPic=1&amp;sign=on&amp;to=tsina&amp;url=<?php the_permalink(); ?>&amp;title=<?php the_title(); ?>&amp;key=595885820');void(0);"><img src="<?php echo $path?>img/nav/wx.svg"></a>
               </li>
             </ul>
           </nav>

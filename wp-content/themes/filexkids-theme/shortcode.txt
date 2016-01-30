@@ -1,0 +1,35 @@
+<ol class="options fontsize-16">
+              <li><label>[radio* abc class:checkradios]預約入學</label></li>
+              <li><label>[radio* abc class:checkradios]洽詢入學及課程</label></li>
+              <li><label>[radio* abc class:checkradios]加入家長社群 / 成為家長夥伴</label></li>
+              <li><label>[radio* abc class:checkradios]參加活動</label></li>
+              <li><label>[radio* abc class:checkradios]意見反應</label></li>
+              <li><label>[radio* abc class:checkradios]其他</label></li>
+            </ol>
+<form class="row">
+              <section class="form-group parent col-lg-6">
+                [text* parent class:form-control placeholder:家長姓名]
+              </section>
+              <section class="form-group kid col-lg-6">
+                [text* kid class:form-control placeholder:孩子姓名]
+              </section>
+              <section class="form-group phone col-lg-6">
+                [text* phone class:form-control placeholder:連絡電話 ]
+              </section>
+              <section class="form-group gender col-lg-6">
+                [text gender class:form-control placeholder:孩子性別]
+              </section>
+              <section class="form-group mail col-lg-6">
+                [text* mail class:form-control placeholder:電子郵件]
+              </section>
+              <section class="form-group birth col-lg-6">
+                [text birth class:form-control placeholder:孩子生日]
+              </section>
+              <section class="form-group advise col-lg-12">
+                [textarea * advise class:form-control placeholder:洽詢或建議]
+              </section>
+              <p class="highlight">[ ※ ] 為必填欄位。</p>
+              <p>我們在收到您的訊息之後，會立刻與您聯絡，進一步了解及討論相關事宜。</p>
+              <p>您亦可直接電洽各分校，或電洽 : 菲力校務中心-盧老師 (02) 2939-6258。</p>
+              <button class="btn btn-default fontsize-18">送出</button>
+            </form>

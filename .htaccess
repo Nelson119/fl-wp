@@ -4,6 +4,7 @@
 RewriteEngine On
 RewriteBase /fl/
 RewriteRule ^index\.php$ - [L]
+RewriteRule ^^菲力公告/(\d+)(/\d+)/? /fl/?pagename=$matches[0]&post_type=$matches[1] [QSA,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /fl/index.php [L]

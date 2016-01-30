@@ -81,12 +81,12 @@
             <h3 class="fontsize-32 brush">聯絡我們</h3>
             <p class="fontsize-14 text-center">歡迎您在這裡與我們分享您的建議與看法，為了孩子與我們共同的未來共盡心力！請填妥相關資料，我們會盡快與您聯絡！</p>
             <ol class="options fontsize-16">
-              <li><label><input class="checkradios" type="radio" name="option">預約入學</label></li>
-              <li><label><input class="checkradios" type="radio" name="option">洽詢入學及課程</label></li>
-              <li><label><input class="checkradios" type="radio" name="option">加入家長社群 / 成為家長夥伴</label></li>
-              <li><label><input class="checkradios" type="radio" name="option">參加活動</label></li>
-              <li><label><input class="checkradios" type="radio" name="option">意見反應</label></li>
-              <li><label><input class="checkradios" type="radio" name="option">其他</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="預約入學">預約入學</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="洽詢入學及課程">洽詢入學及課程</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="加入家長社群 / 成為家長夥伴">加入家長社群 / 成為家長夥伴</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="參加活動">參加活動</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="意見反應">意見反應</label></li>
+              <li><label><input class="checkradios" type="radio" name="option" value="其他">其他</label></li>
             </ol>
             <form class="row">
               <section class="form-group parent col-lg-6">
@@ -113,8 +113,9 @@
               <p class="highlight">[ ※ ] 為必填欄位。</p>
               <p>我們在收到您的訊息之後，會立刻與您聯絡，進一步了解及討論相關事宜。</p>
               <p>您亦可直接電洽各分校，或電洽 : 菲力校務中心-盧老師 (02) 2939-6258。</p>
-              <button class="btn btn-default fontsize-18">送出</button>
+              <button onclick="submit" class="btn btn-default fontsize-18">送出</button>
             </form>
+              <?php echo do_shortcode('[contact-form-7 id="6" title="Contact form 1"]')?>
           </div>
         </section>
       </section>
@@ -122,6 +123,5 @@
     </section>
 
 
-<?php get_sidebar(); ?>
 
-<?php get_footer(); ?>
+<?php get_footer('lightblue'); ?>

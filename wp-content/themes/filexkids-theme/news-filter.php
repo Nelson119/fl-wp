@@ -1,24 +1,18 @@
 <?php 
-
-  if($wp_query->query_vars['post_type'] != ''){
-    $post_type = $wp_query->query_vars['post_type'];
-    // echo $post_type;
-  }else{
-    $post_type = get_post_type($post);
-  }
-  $single = get_post_type_object( $post_type );
-  if($wp_query->query_vars['post_type'] != ''){
-    $post_type = $wp_query->query_vars['post_type'];
-    // echo $post_type;
-  }else{
-    $post_type = get_post_type($post);
+  $school = null;
+  if(isset($_GET['school'])){
+    $school = $_GET['school'];
+    if($school == ''){
+      $school = '全部分校';
+    }
   }
   //Default values for the resulting variables
   $oldestyear = date('Y');
   $oldestmonth = date('m');
               
   //Calculate Oldest Post Date
-  $args = array('orderby'=>'date','order'=>'ASC','posts_per_page'=>1,'caller_get_posts'=>1);
+  $args = array('orderby'=>'date','order'=>'ASC','posts_per_page'=>1,'caller_get_posts'=>1
+    ,'post_type'=>array('news01','news02','news03','news04','news05','news06','news07','news08','news09'));
   $oldestpost = get_posts($args);
 
   //Extract the date information            
@@ -27,10 +21,10 @@
       $oldestmonth = mysql2date('m',$oldestpost[0]->post_date);
   }
   $now = date('Y');
-  $year = $now;
-  $year = get_query_var('year');
-        // global $wp_rewrite;
-        // var_dump($wp_rewrite);
+  $year = '';
+  if(isset($_GET['filter_year'])){
+    $year = $_GET['filter_year'];
+  }
 
 ?>
 <?php $path=wp_make_link_relative(get_template_directory_uri().'/')?>
@@ -39,20 +33,20 @@
     <div class="row">
       <aside class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="dropdown fontsize-14">
-          <button value="<?php echo $single->labels->name == "頁面" ? "" : $single->labels->name?>" class="btn btn-default dropdown-toggle" type="button" id="dropdownSchool" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
-            <?php echo $single->labels->name == "頁面" ? "分校選擇" : $single->labels->name?>
+          <button value="<?php echo $school?>" class="btn btn-default dropdown-toggle" type="button" id="dropdownSchool" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+            <?php echo $school == "" ? "學校選擇" : $school?>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownSchool">
-            <li<?php if($ty == 'page'):?> class="selected"<?php endif?>><a href="javascript:">全部分校</a></li>
-            <li<?php if($ty == 'news01'):?> class="selected"<?php endif?>><a href="javascript:">安康安親</a></li>
-            <li<?php if($ty == 'news02'):?> class="selected"<?php endif?>><a href="javascript:">北新安親</a></li>
-            <li<?php if($ty == 'news03'):?> class="selected"<?php endif?>><a href="javascript:">中興安親</a></li>
-            <li<?php if($ty == 'news04'):?> class="selected"<?php endif?>><a href="javascript:">大豐安親</a></li>
-            <li<?php if($ty == 'news05'):?> class="selected"<?php endif?>><a href="javascript:">復興幼園</a></li>
-            <li<?php if($ty == 'news06'):?> class="selected"<?php endif?>><a href="javascript:">安康幼園</a></li>
-            <li<?php if($ty == 'news07'):?> class="selected"<?php endif?>><a href="javascript:">中興幼園</a></li>
-            <li<?php if($ty == 'news08'):?> class="selected"<?php endif?>><a href="javascript:">安華幼園</a></li>
-            <li<?php if($ty == 'news09'):?> class="selected"<?php endif?>><a href="javascript:">中興愛兒</a></li>
+            <li<?php if($school == ''):?> class="selected"<?php endif?>><a href="javascript:">全部分校</a></li>
+            <li<?php if($school == '安康安親'):?> class="selected"<?php endif?>><a href="javascript:">安康安親</a></li>
+            <li<?php if($school == '北新安親'):?> class="selected"<?php endif?>><a href="javascript:">北新安親</a></li>
+            <li<?php if($school == '中興安親'):?> class="selected"<?php endif?>><a href="javascript:">中興安親</a></li>
+            <li<?php if($school == '大豐安親'):?> class="selected"<?php endif?>><a href="javascript:">大豐安親</a></li>
+            <li<?php if($school == '復興幼園'):?> class="selected"<?php endif?>><a href="javascript:">復興幼園</a></li>
+            <li<?php if($school == '安康幼園'):?> class="selected"<?php endif?>><a href="javascript:">安康幼園</a></li>
+            <li<?php if($school == '中興幼園'):?> class="selected"<?php endif?>><a href="javascript:">中興幼園</a></li>
+            <li<?php if($school == '安華幼園'):?> class="selected"<?php endif?>><a href="javascript:">安華幼園</a></li>
+            <li<?php if($school == '中興愛兒'):?> class="selected"<?php endif?>><a href="javascript:">中興愛兒</a></li>
           </ul>
         </div>
       </aside>

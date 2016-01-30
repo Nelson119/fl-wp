@@ -26,8 +26,37 @@
       <?php 
       // the query
       $args = array(
-          'posts_per_page' => 12,
-          'paged' => $page
+        'post_type' => 'post',
+        'posts_per_page' => 5000,
+        'order_by' => 'date',
+        'order' => 'desc'
+      );
+      $wp_query = new WP_Query( $args );
+      $highlightDate = array();
+      
+      while (have_posts()) : the_post();
+        array_push($highlightDate,get_the_date('Y/m/d'));
+      endwhile;
+      echo '<script> var highlightDates=\''.json_encode($highlightDate).'\'</script>';
+
+      wp_reset_query();
+      $dq = array();
+      if(isset($_GET['filter_year'])){
+        $dq['year'] = $_GET['filter_year'];
+      }
+      if(isset($_GET['filter_month'])){
+        $dq['month'] = $_GET['filter_month'];
+      }
+      if(isset($_GET['filter_day'])){
+        $dq['day'] = $_GET['filter_day'];
+      }
+
+      $args = array(
+        'posts_per_page' => 12,
+        'date_query' => $dq,
+        'paged' => $page,
+        'order_by' => 'date',
+        'order' => 'desc'
       );
       $wp_query = new WP_Query( $args ); ?>
       <div class="container">
@@ -49,80 +78,33 @@
               <li class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
                 <a href="<?php the_permalink();?>" class="box">
                   <figure>
-                    <img src="<?php echo $path?>img/home/news-1-1.png">
+                    <?php the_post_thumbnail()?>
                   </figure>
                   <p class="category">全校公告<img class="svg" src="<?php echo $path?>img/common/hashtag.svg"></p>
-                  <p class="fontsize-13 date"><i class="news-icon <?php echo types_render_field("icon-name",array("raw"=>true))?>"></i>2015/09/30</p>
+                  <p class="fontsize-13 date"><i class="news-icon <?php echo types_render_field("icon-name",array("raw"=>true))?>"></i><?php the_time('Y/m/d')?></p>
                   <h4 class="fontsize-20"><?php the_title()?></h4>
                   <p class="fontsize-15 visible-lg"><?php echo $summary?></p>
                 </a>
               </li>
               <?php endwhile; ?>
             </ul>
+            <!--pagination-->
+            <section class="pagination newsgreen">
+              <?php get_template_part('pagination'); ?>
+            </section>
+            <!--end pagination-->
           </div>
           <?php else: ?>
-          <article>
+          <div class="col-lg-9">
             <h2><?php _e( 'Sorry, nothing to display.', 'html5blank' ); ?></h2>
-          </article>
+          </div>
           <?php endif; ?>
           <!-- end left content -->
           <!--sidebar-->
-          <div class="col-lg-3 sidebar hidden-md hidden-sm hidden-xs">
-            <aside class="title newsgreen">
-              <h3 class="fontsize-20">CALENDAR</h3>
-            </aside>
-            <figure class="calendar">
-              <img src="<?php echo $path?>img/anouncement/calendar.png">
-            </figure>
-            <aside class="title newsgreen">
-              <h3 class="fontsize-20">Recent Posts</h3>
-            </aside>
-            <ul class="recent-posts fontsize-reset newsgreen">
-              <li>
-                <h4 class="row fontsize-reset">
-                  <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-                  <a class="col-lg-8 fontsize-16" href="javascript:">平時防災做得好│災害來沒煩惱</a>
-                </h4>
-              </li>
-              <li>
-                <h4 class="row fontsize-reset">
-                  <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-                  <a class="col-lg-8 fontsize-16" href="javascript:">教學觀摩家長日│寶貝帶著爸爸媽媽去上學</a>
-                </h4>
-              </li>
-              <li>
-                <h4 class="row fontsize-reset">
-                  <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-                  <a class="col-lg-8 fontsize-16" href="javascript:">平時防災做得好│災害來沒煩惱</a>
-                </h4>
-              </li>
-              <li>
-                <h4 class="row fontsize-reset">
-                  <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-                  <a class="col-lg-8 fontsize-16" href="javascript:">Open House誰來當老師│歡樂飛盤逍遙遊</a>
-                </h4>
-              </li>
-              <li>
-                <h4 class="row fontsize-reset">
-                  <span class="date fontsize-15 col-lg-4">2015/10/05</span>
-                  <a class="col-lg-8 fontsize-16" href="javascript:">教學觀摩家長日│寶貝帶著爸爸媽媽去上學</a>
-                </h4>
-              </li>
-            </ul>
-            <aside class="title newsgreen">
-              <h3 class="fontsize-20">FACEBOOK FAN PAGE</h3>
-            </aside>
-            <div class="fb-page" data-href="https://www.facebook.com/filexkids" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/filexkids"><a href="https://www.facebook.com/filexkids">菲力兒童文教機構 | Filexkids</a></blockquote></div></div>
-          </div>
+          <?php get_sidebar(); ?>
           <!-- end sidebar -->
         </section>
-        <!--pagination-->
-        <section class="pagination newsgreen">
-          <?php get_template_part('pagination'); ?>
-        </section>
-        <!--end pagination-->
       </div>
     </section>
-<?php get_sidebar(); ?>
 
-<?php get_footer(); ?>
+<?php get_footer('lightgreen'); ?>

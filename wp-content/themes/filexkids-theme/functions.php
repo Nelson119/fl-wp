@@ -124,10 +124,22 @@ function html5wp_pagination() {
     global $wp_query;
     $big = 999999999;
     $paged = (get_query_var('paged') !== 0) ? get_query_var('paged') : 1;
+    //  paginate_links( array(
+    //     'base'     => $pagenum_link,
+    //     'format'   => $format,
+    //     'total'    => $GLOBALS['wp_query']->max_num_pages,
+    //     'current'  => $paged,
+    //     'mid_size' => 2,
+    //     'add_args' => array_map( 'urlencode', $query_args ),
+    //     'prev_text' => __( '&larr; Previous', 'yourtheme' ),
+    //     'next_text' => __( 'Next &rarr;', 'yourtheme' ),
+    //     'type'      => 'list',
+    // )
     $pages = paginate_links( array(
         'base'      =>  @add_query_arg('page','%#%'),
         'format'    => '?page=%#%',
         'current'   => $paged,
+        'mid_size'  => 2,
         'total'     => $wp_query->max_num_pages,
         'type'      => 'array',
         'prev_next' => true,
@@ -226,7 +238,7 @@ add_action( 'login_head', 'new_login_logo' );
 function new_login_logo() {
      echo '<style type="text/css">
               .login h1 a {
-                 background-image:url('.get_template_directory_uri().'/images/login-logo.png) !important;
+                 background-image:url('.get_template_directory_uri().'/img/common/login-logo.png) !important;
                  background-size: 270px 164px !important;
                  width:270px !important;
                  height:164px !important;
@@ -389,31 +401,90 @@ add_action( 'wp_before_admin_bar_render', 'remove_admin_bar_links' );
 // }
 // register_activation_hook( __FILE__, 'event_archive_activate' );
 
-// // Add rewrite rule for event archive on init
-function event_archive_set_rewrite_rules() {
-    add_rewrite_tag('%paged%', '([^&]+)');
-    add_rewrite_tag('%ty%', '([^&]+)');
-    add_rewrite_rule('^學校新聞/中興愛兒/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news01&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/中興愛兒/([0-9]{4})/?','index.php?post_type=news01&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/安華幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news02&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/安華幼園/([0-9]{4})/?','index.php?post_type=news02&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/中興幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news03&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/中興幼園/([0-9]{4})/?','index.php?post_type=news03&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/安康幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news04&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/安康幼園/([0-9]{4})/?','index.php?post_type=news04&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/復興幼園/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news05&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/復興幼園/([0-9]{4})/?','index.php?post_type=news05&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/大豐安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news06&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/大豐安親/([0-9]{4})/?','index.php?post_type=news06&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/中興安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news07&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/中興安親/([0-9]{4})/?','index.php?post_type=news07&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/北新安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news08&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/北新安親/([0-9]{4})/?','index.php?post_type=news08&year=$matches[1]');
-    add_rewrite_rule('^學校新聞/安康安親/([0-9]{4})/page/?([0-9]{1,})/?','index.php?post_type=news09&year=$matches[1]&paged=$matches[2]');
-    add_rewrite_rule('^學校新聞/安康安親/([0-9]{4})/?','index.php?post_type=news09&year=$matches[1]');
-}
-add_filter( 'init', 'event_archive_set_rewrite_rules' );
-//         global $wp_rewrite;
-//         var_dump($wp_rewrite);
+if ( function_exists('register_sidebar') ){
 
-?>
+     register_sidebar(
+
+        array(
+
+            'name' => 'SideBar',
+
+            'before_widget' => '<div class="sidebar">',
+
+            'after_widget' => '</div>',
+
+            'before_title' => '<h3>',
+
+            'after_title' => '</h3>'
+        )
+    );
+}
+function recent_posts_function($atts){
+   extract(shortcode_atts(array(
+      'posts' => 1,
+      'post_type' => 'post',
+      'color' => 'orange'
+   ), $atts));
+   $return_string = '<ul class="recent-posts fontsize-reset '.$color.'">';
+   if($post_type == 'news') {
+    $post_type = array( 'news01', 'news02' , 'news03' , 'news04' , 'news05' , 'news06' , 'news07' , 'news08', 'news09' );
+   }else if($post_type == 'blog') {
+    $post_type = array( 'blog01', 'blog02' , 'blog03' , 'blog04' , 'blog05' , 'blog06' , 'blog07' , 'blog08', 'blog09' );
+   }else if($post_type == 'album') {
+    $post_type = array( 'album01', 'album02' , 'album03' , 'album04' , 'album05' , 'album06' , 'album07' , 'album08', 'album09' );
+   }
+   query_posts(array('post_type' => $post_type, 'orderby' => 'date', 'order' => 'DESC' , 'showposts' => $posts));
+   if (have_posts()) :
+      while (have_posts()) : the_post();
+         $return_string .= '<li><h4 class="row fontsize-reset"><span class="date fontsize-15 col-lg-4">'.get_the_time('Y/m/d').'</span><a class="col-lg-8 fontsize-16" href="'.get_permalink().'">'. wp_trim_words( get_the_title(), 30 ).'</a></h4></li>';
+      endwhile;
+   endif;
+   $return_string .= '</ul>';
+ 
+   wp_reset_query();
+   return $return_string;
+}
+function sidebar_title_function($atts){
+   extract(shortcode_atts(array(
+      'text' => '',
+      'color' => 'orange'
+   ), $atts));
+ 
+   $return_string = '<aside class="title orange"><h3 class="fontsize-20">'.$text.'</h3></aside>';
+ 
+   return $return_string;
+}
+//建立一個短代碼
+function register_shortcodes(){
+   add_shortcode('recent-posts', 'recent_posts_function');
+   add_shortcode('sidebar-title', 'sidebar_title_function');
+}
+//新增至佈景主題中
+add_action('init', 'register_shortcodes');/*文章頁面*/
+add_filter('widget_text', 'do_shortcode'); /*小工具*/
+
+
+/*
+Plugin Name: Exclude pages from admin
+Plugin URI: https://www.johnparris.com/
+Description: Removes pages from admin that shouldn't be edited.
+Version: 1.0
+Author: John Parris
+Author URI: https://www.johnparris.com/
+License: GPLv2
+*/
+ 
+function jp_exclude_pages_from_admin($query) {
+ 
+  if ( ! is_admin() )
+    return $query;
+ 
+  global $pagenow, $post_type;
+ 
+  if ( !current_user_can( 'administrator' ) && $pagenow == 'edit.php' && $post_type == 'page' )
+    $query->query_vars['post__not_in'] = array( '30' ); // Enter your page IDs here
+  
+ 
+}
+add_filter( 'parse_query', 'jp_exclude_pages_from_admin' );
+

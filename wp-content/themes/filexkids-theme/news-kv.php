@@ -1,6 +1,6 @@
 <?php $path=wp_make_link_relative(get_template_directory_uri().'/')?>
 <section id="kv">
-  <figure>
+  <figure class="hidden-xs hidden-sm hidden-md">
     <section class="container">
       <figcaption>
         <h2 class="fontsize-30"><span>學校新聞</span><span>SCHOOL NEWS</span></h2>
